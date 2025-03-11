@@ -49,9 +49,9 @@ final hardware prototype img
 ### Testing on the DAW
 
 Fortunately I only work with a DAW and my controller does not register MIDI 
-control change signals.  So, my workflow will just be mapping knobs to my parameters 
+control change signals.  So, my workflow will just be mapping knobs to parameters 
 inside the DAW.  Because of this it does not matter what the control change signal is, 
-as long as there is a unique one for each knob.  I have given them midi message 0-39 in 
+as long as there is a unique value for each knob.  I have given them midi message 0-39 in 
 column first order, same as their labeling on the schematic.
 
 ![DAW Test](assets/midi-test.png)
@@ -60,7 +60,7 @@ column first order, same as their labeling on the schematic.
 
 ![3d model](assets/pcb-3d.png)
 
-(see [schematics](assets))
+> (see [schematics](assets))
 
 ## Bill of Materials
 
