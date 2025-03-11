@@ -26,8 +26,8 @@ from abstractions of midi elements to preprocessing of the analog signal.
 
 I decided to use the Arduino Micro (not ideal) with 2x16 + 1x8 multiplexers 
 to 40 Bourns PTV09 potentiometers.  With the number of potentiometers I have, 
-I decided to wire the mux selection signals to output GPIO pins.  I also could 
-have shared the mux selection and expanded the enable signals or used a shift 
+I decided to wire the mux selection signals to 4+4+3 output GPIO pins.  I also 
+could have shared the mux selection and expanded the enable signals or used a shift 
 register.  The PCB was harder than I thought to make, but I think it turned out 
 well.  I decided to use surface mount for the multiplexers and decoupling 
 capacitors and pay for assembly for that.  Then I used through mounted potentiometers, 
