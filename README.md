@@ -1,91 +1,82 @@
-# midi-5x8.v1
+# midi-5x8
 
-## 2/22/25
+I have been trying to produce music recently and envisioned a workflow 
+where I program midi notes ahead of time, then use an ableton controller 
+and knob board to trigger midi clips and adjust parameters live.  I first 
+purchased the Akai APC mini mk2 as the controller, but was not able to 
+find a knob board that I wanted.  So, I made my own.
 
-Here I start work on the midi 5x8 knob board!
+### Final product
 
-### Background
+final poduct img
 
-I want to use a midi controller with just a bunch of knobs to make music, but I cannot 
-find one.  Upon more searching, I have found the 
+I originally wrote this as a log of making design considerations for 
+manufacturing a consumer product but ultimately decided that it was too 
+much of a hassle; below is an explanation of the final design.
 
-* Akai midimix- $110, center detent, small knobs
-* Nakedboards MC32- $115, kind of but site does not work
-* Midi fighter twister- $240, expensive and not many knobs
-* Shik N32B Slim, $300, expensive and not on sale
-* Faderfox PC12- $720, expensive
-* Intech PO16- $130, modular, not enough knobs
+## Firmware
 
-Overall, there is nothing exactly like what I am looking for.  I believe I could make a 
-product like the Intech PO16 or Shik N32B but more competetively priced, targeting the 
-market of people like me- looking for more knobs for less money.  I believe I could market 
-the product as a workflow to people that may otherwise not think they wanted it as well.  
-More importantly, I think this product would benefit me and could benefit those that would 
-end up buying it.
+I am using the [Control Surface](https://github.com/tttapa/Control-Surface) 
+library for the firmware, which provides everything I need for this project, 
+from abstractions of midi elements to preprocessing of the analog signal.
 
-### Design requirements
+> [Firmware source](src/firmware.ino)
 
-First, the most basic functionality is that there should be 40 knobs, and they should send 
-midi input over usb.  Upon further research, I found that also outputting to mini trs could 
-be helpful.  From there, expanding to all midi signals that could be sent from knobs could 
-be added.  In order to do this, we need to have an app that configures the device over usb.  
-This app should be able to receive updates and update the firmware of the device if needed.  
-Also, the app should act as a midi monitor to show what is being outputted.  Then, presets 
-should be able to be created and loaded.  Optional- midi through input.
+## Hardware
 
-### Design
+I decided to use the Arduino Micro (not ideal) with 2x16 + 1x8 multiplexers 
+to 40 Bourns PTV09 potentiometers.  With the number of potentiometers I have, 
+I decided to wire the mux selection signals to output GPIO pins.  I also could 
+have shared the mux selection and expanded the enable signals or used a shift 
+register.  The PCB was harder than I thought to make, but I think it turned out 
+well.  I decided to use surface mount for the multiplexers and decoupling 
+capacitors and pay for assembly for that.  Then I used through mounted potentiometers, 
+so I needed to solder those and the microcontroller to the board.
 
-#### Hardware
+### Schematic
 
-As of now, I want an ATmega32U4 microcontroller with usbc and mini trs output.  I want to 
-have 40 knobs in a 5x8 array on the pcb, which will be read from 2x16 and 1x8 multiplexers, 
-needing 11 digital outputs and 3 analog inputs.  This all should be covered by the chosen 
-mcu.  On top of this some passives may be required for the muxes and usb.  The potentiometers 
-will be through hole, and the rest of the components should be surface mounted.
+Making the schematic was a lot easier when I learned about signal labels in KiCad; 
+I think the final version is pretty clean.  I also had to reorder the wiring in a 
+different way than I expected because of the way the IC pinout faced my potentiometer 
+array.
 
-For the case, I may do plastic or metal.  The design will be two pieces for top and bottom, 
-with consideration for the integrity of the pcb.  I also need to figure out logo printing as 
-well as branding.
+> [Schematic](assets/schematic.pdf)
 
-#### Components
+### final hardware prototype
 
-* ATmega32u4- $5
-* USB interface- $2-4
-* TRS jack- $1
-* Multiplexers- $2
-* Passives- $3
-* Pots- for production 40x0.5
-* Knobs- undecided, at the moment 40x0.5
-* PCB- $5-10
-* PCBA- $10-30
-* Case- $20
+final hardware prototype img
 
-As of now, I expect to be able to price this reasonably if doing a sizeable production run.
+### Testing on the DAW
 
-#### Firmware
+Fortunately I only work with a DAW and my controller does not register MIDI 
+control change signals.  So, my workflow will just be mapping knobs to my parameters 
+inside the DAW.  Because of this it does not matter what the control change signal is, 
+as long as there is a unique one for each knob.  I have given them midi message 0-39 in 
+column first order, same as their labeling on the schematic.
 
-I believe I can do this with the arduino control surface library.  Versioning and updates 
-can be done with SysEx calls via MIDI 2.0.  Also, bootloader could be entered through code 
-with SysEx midi calls.
+![DAW Test](assets/midi-test.png)
 
-#### Software
+### PCB Model
 
-I plan on making an electron app for the application side.  I want it to show the controller 
-state and when each knob is clicked on I want an option pane on the side to select what it 
-should output.  The app should be able to receive updates, and update firmware.  I will need 
-to host releases for each of these.
+![3d model](assets/pcb-3d.png)
 
-#### Production
+(see [schematics](assets))
 
-I need to figure out how to load a bootloader and load the software initially.  I believe I 
-can do this over usb.  My plan as of now is to pay for PCBA and assemble the case myself.  
-Packaging and distribution- up in the air, as is marketing.
+## Bill of Materials
 
-### Order of steps
+| Part name                                                     | Quantity  |
+|---------------------------------------------------------------|-----------|
+| Bourns PTV09A-4020F-B103                                      | 40        |
+| Tayda Electronics Black Rubber Knob 15x20mm D Shaft 6x4.5mm   | 40        |
+| Arduino Micro                                                 | 1         |
+| TI CD74HC4067M96 16-Channel Analog Multiplexer                | 2         |
+| TI 74HC4051 8-Channel Analog Multiplexer                      | 1         |
+| 100 nF Capacitor                                              | 4         |
 
-1. Write firmware using Arduino IDE and
-2. Hardware prototype using breadboard
-3. App design, integrated with hardware
-4. PCB design
-5. Case design
-6. Production considerations/compliance
+## Takeaways
+
+I just wanted the board so I used the arduino firmware solution, BUT if I wanted 
+to add more features I would have switched to and STM32.  At that point I would have 
+included just the mcu in the spec and wired the usb interface myself, which I 
+considered for this project and decided against.  Overall, I am pleased with the 
+end result and had a good time learning about pcb design.
