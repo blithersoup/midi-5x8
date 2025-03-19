@@ -8,7 +8,7 @@ find a knob board that I wanted.  So, I made my own.
 
 ### Final product
 
-final poduct img
+![Final Side](images/final_side.jpg)
 
 I originally wrote this as a log of making design considerations for 
 manufacturing a consumer product but ultimately decided that it was too 
@@ -40,11 +40,11 @@ I think the final version is pretty clean.  I also had to reorder the wiring in 
 different way than I expected because of the way the IC pinout faced my potentiometer 
 array.
 
-> [Schematic](assets/schematic.pdf)
+> [Schematic](schematic/schematic.pdf)
 
-### final hardware prototype
+### Final Hardware Prototype
 
-final hardware prototype img
+![Hardware Prototype](images/hardware_prototype.jpg)
 
 ### Testing on the DAW
 
@@ -54,13 +54,15 @@ inside the DAW.  Because of this it does not matter what the control change sign
 as long as there is a unique value for each knob.  I have given them midi message 0-39 in 
 column first order, same as their labeling on the schematic.
 
-![DAW Test](assets/midi-test.png)
+![DAW Test](images/midi-test.png)
 
 ### PCB Model
 
-![3d model](assets/pcb-3d.png)
+![3d model](images/pcb-3d.png)
 
-> (see [schematics](assets))
+![finished pcb](images/pcb_front.jpg)
+
+> (see [schematics](schematic))
 
 ## Bill of Materials
 
@@ -79,4 +81,8 @@ I just wanted the board so I used the arduino firmware solution, BUT if I wanted
 to add more features I would have switched to and STM32.  At that point I would have 
 included just the mcu in the spec and wired the usb interface myself, which I 
 considered for this project and decided against.  Overall, I am pleased with the 
-end result and had a good time learning about pcb design.
+end result and had a good time learning about pcb design.  Demo coming soon!
+
+![final front](images/final_front.jpg)
+
+![final rear](images/final_rear.jpg)
