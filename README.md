@@ -78,7 +78,7 @@ column first order, same as their labeling on the schematic.
 ## Takeaways
 
 I just wanted the board so I used the arduino firmware solution, BUT if I wanted 
-to add more features I would have switched to and STM32.  At that point I would have 
+to add more features I would have switched to an STM32.  At that point I would have 
 included just the mcu in the spec and wired the usb interface myself, which I 
 considered for this project and decided against.  Overall, I am pleased with the 
 end result and had a good time learning about pcb design.  Demo coming soon!
