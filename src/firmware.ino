@@ -25,8 +25,8 @@ CCPotentiometer controlPotentiometers[] {
   { mux0.pin(14), { 0x01, Channel_1} },
   { mux0.pin(15), { 0x00, Channel_1} },
 
-  { mux1.pin( 0), { 0x22, Channel_1} },
-  { mux1.pin( 1), { 0x21, Channel_1} },
+  { mux1.pin( 0), { 0x21, Channel_1} },
+  { mux1.pin( 1), { 0x22, Channel_1} },
   { mux1.pin( 2), { 0x19, Channel_1} },
   { mux1.pin( 3), { 0x1A, Channel_1} },
   { mux1.pin( 4), { 0x1B, Channel_1} },
